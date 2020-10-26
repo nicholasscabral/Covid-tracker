@@ -1,10 +1,11 @@
 import React from 'react';
+import LandingMap from './pages/LandingMap'
+
+import './styles/global.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1></h1>
-    </div>
+    <LandingMap />
   );
 }
 
