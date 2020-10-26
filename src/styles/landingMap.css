@@ -1,0 +1,18 @@
+#page-map {
+    width: 100vw;
+    height: 100vh;
+
+    position: relative;
+    display: flex;
+}
+
+#page-map  aside {
+    width: 440px;
+    background: linear-gradient(329.54deg, #2986d1, #88c7c7 100%);
+    padding: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
