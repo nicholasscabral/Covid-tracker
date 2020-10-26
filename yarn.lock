@@ -7955,6 +7955,11 @@ pnp-webpack-plugin@1.6.4:
   dependencies:
     ts-pnp "^1.1.6"
 
+point-in-polygon@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/point-in-polygon/-/point-in-polygon-0.0.0.tgz#09130fc5cdef218de5f9bdf0e6c4a3b2e1beae51"
+  integrity sha1-CRMPxc3vIY3l+b3w5sSjsuG+rlE=
+
 portfinder@^1.0.26:
   version "1.0.28"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.28.tgz#67c4622852bd5374dd1dd900f779f53462fac778"
@@ -8867,6 +8872,11 @@ raw-body@2.4.0:
     http-errors "1.7.2"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+rbush@^1.3.2:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/rbush/-/rbush-1.4.3.tgz#7874e2d38911d2719ea27731d32445da5ec4394c"
+  integrity sha1-eHTi04kR0nGeoncx0yRF2l7EOUw=
 
 react-app-polyfill@^2.0.0:
   version "2.0.0"
@@ -11094,6 +11104,14 @@ whatwg-url@^8.0.0:
     lodash.sortby "^4.7.0"
     tr46 "^2.0.2"
     webidl-conversions "^6.1.0"
+
+which-country@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/which-country/-/which-country-1.0.0.tgz#22cd4b0132a399f69b88791d8b4bbe72f2f20f47"
+  integrity sha1-Is1LATKjmfabiHkdi0u+cvLyD0c=
+  dependencies:
+    point-in-polygon "0.0.0"
+    rbush "^1.3.2"
 
 which-module@^2.0.0:
   version "2.0.0"
