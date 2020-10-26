@@ -23,9 +23,10 @@ function LandingMap() {
                 style={{ width: '130%', height: '100%' }}
             >
                 {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"/> */}
-                <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}/>
-                {/* ou dark */}
-
+                <TileLayer url={`https://api.mapbox.com/styles/v1/nicholasscabral/ckgr0cw1z41v11aqoyhntqgid/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}/>
+                
+                {/* meu estilo personalizado(mapbox) = /styles/v1/nicholasscabral/ckgr0cw1z41v11aqoyhntqgid*/}
+                
             </Map>
 
             
