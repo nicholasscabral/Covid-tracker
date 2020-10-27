@@ -10,9 +10,91 @@
     width: 440px;
     background: linear-gradient(329.54deg, #2986d1, #88c7c7 100%);
     padding: 80px;
+    
+    text-align: center;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
+
+#page-map aside .status .status-header {
+    margin-bottom: 30px;
+}
+
+#page-map aside .status .status-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-map aside .status .status-header  span {
+    margin-left: 10px;
+    font-size: 40px;
+}
+
+#page-map aside .status .status-header img {
+    border-radius: 10px;
+    height: 40px;
+}
+
+#page-map .status .status-info .info img {
+    height: 40px;
+    /* width: 40px; */
+    margin-right: 10px;
+    /* align-self: center */
+}
+
+
+#page-map aside .status-info .info {
+    display: flex;
+    flex-direction: row;
+    
+    height: 60px;
+    width: 300px;
+    padding-top: 15px;
+    
+    font-size: 20px;
+    
+    border-radius: 6px;
+    margin-bottom: 30px;
+}
+
+#page-map aside .status-info .cases,
+#page-map aside .status-info .active,
+#page-map aside .status-info .deaths,
+#page-map aside .status-info .recovered {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+/* 
+#page-map aside h2 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 42px;
+    margin-top: 64px;
+}
+
+#page-map aside p {
+    line-height: 28px;
+    margin-top: 24px;
+}
+
+#page-map aside footer {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 24px;
+}
+
+#page-map aside footer strong {
+    font-weight: 800;
+}
+
+#page-map .leaflet-container {
+    z-index: 5;
+} */
 
