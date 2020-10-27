@@ -6,47 +6,47 @@ import bacteria from '../assets/images/bacteria.svg'
 import personMask from '../assets/images/person-mask.svg'
 import grave from '../assets/images/grave.svg'
 import mask from '../assets/images/mask.svg'
+import world from '../assets/images/world.svg'
 
 import '../styles/landingMap.css'
 import 'leaflet/dist/leaflet.css';
 
-const casesFields = document.querySelector('.cases')
+
 const detectCountry = require('which-country')
 function LandingMap() {
-
     
     return (
         <div id="page-map">
             <aside>
                 <div className="status" >
                     <div className="status-header">
-                        <img src="https://github.com/hjnilsson/country-flags/blob/master/png100px/ru.png?raw=true" alt=""/>
-                        <span>Brazil</span>
+                        <img src={world} alt=""/>
+                        <span>Mundo</span>
                     </div>
                     <hr/>
                     <div className="status-info">
                         <div className="info">
+                            <div className="icon"><img src={ bacteria } alt=" "/></div>
                             <div className="cases">
-                                <div className="icon"><img src={ bacteria } alt=" "/></div>
-                                <p>total de casos: 11111</p>
+                                <p>Total de casos: -</p>
                             </div>
                         </div>
                         <div className="info">
+                            <div className="icon"><img src={ personMask }alt=" "/></div>
                             <div className="active">
-                                <div className="icon"><img src={ personMask }alt=" "/></div>
-                                <p>total de casos: 11111</p>
+                                <p>Casos ativos: -</p>
                             </div>
                         </div>
                         <div className="info">
+                            <div className="icon"><img src={ grave } alt=" "/></div>
                             <div className="deaths">
-                                <div className="icon"><img src={ grave } alt=" "/></div>
-                                <p>total de casos: 11111</p>
+                                <p>Mortes: -</p>
                             </div>
                         </div>
                         <div className="info">
+                            <div className="icon"><img src={ mask }alt=" "/></div>
                             <div className="recovered">
-                                <div className="icon"><img src={ mask }alt=" "/></div>
-                                <p>total de casos: 11111</p>
+                                <p>Casos recuperados: -</p>
                             </div>
                         </div>
                     </div>
