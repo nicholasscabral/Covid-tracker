@@ -15,6 +15,15 @@ import 'leaflet/dist/leaflet.css';
 const detectCountry = require('which-country')
 function LandingMap() {
     
+    function getCoodinates(event) {
+        var longitude = event.latlng.lng;
+        var latitude = event.latlng.lat;
+        
+        console.log(latitude, longitude);
+        alert(detectCountry([longitude, latitude]))
+        var country = detectCountry([longitude, latitude])
+    }
+    
     return (
         <div id="page-map">
             <aside>
@@ -54,7 +63,7 @@ function LandingMap() {
                 <footer>Made with coffee by <a href="https://github.com/nicholasscabral" target="_blank">nicholasscabral</a> </footer>
             </aside>
 
-            <Map id="mapa" 
+            <Map id="mapa" onClick={getCoodinates}
                 center={[39.27762174380272, 10.96741045708063]}
                 minZoom={2}
                 zoom={2}
