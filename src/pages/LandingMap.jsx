@@ -22,6 +22,11 @@ function LandingMap() {
         console.log(latitude, longitude);
         // alert(detectCountry([longitude, latitude]))
         var country = detectCountry([longitude, latitude])
+
+        if (country === null) {
+            getWorldData()
+        }
+        else getCountryData(country)
         
     }
 
@@ -70,46 +75,50 @@ function LandingMap() {
     }
 
     function getWorldData() {
-        api.get(`/v3/covid-19/all`)
-        .then(response => {
-            console.log(response)
-            
-            const headerField = document.querySelector('.status-header')
-            const casesField = document.querySelector('.cases')
-            const activeField = document.querySelector('.active')
-            const deathsField = document.querySelector('.deaths')
-            const recoveredField = document.querySelector('.recovered')
+        try {
+            api.get(`/v3/covid-19/all`)
+            .then(response => {
+                console.log(response)
+                
+                const headerField = document.querySelector('.status-header')
+                const casesField = document.querySelector('.cases')
+                const activeField = document.querySelector('.active')
+                const deathsField = document.querySelector('.deaths')
+                const recoveredField = document.querySelector('.recovered')
 
-            var cases = response.data.cases
-            var activeCases = response.data.active
-            var deaths = response.data.deaths
-            var recovered = response.data.recovered
+                var cases = response.data.cases
+                var activeCases = response.data.active
+                var deaths = response.data.deaths
+                var recovered = response.data.recovered
 
-            headerField.innerHTML = `
-                <img src="${world}" alt=""/>
-                <span>Mundo</span>
-            `
+                headerField.innerHTML = `
+                    <img src="${world}" alt=""/>
+                    <span>Mundo</span>
+                `
 
-            casesField.innerHTML = `
-                <p>Total de casos: ${cases}</p>
-            `
+                casesField.innerHTML = `
+                    <p>Total de casos: ${cases}</p>
+                `
 
-            activeField.innerHTML = `
-                <p>Casos Ativos: ${activeCases}</p>
-            `
+                activeField.innerHTML = `
+                    <p>Casos Ativos: ${activeCases}</p>
+                `
 
-            deathsField.innerHTML = `
-                <p>Mortes: ${deaths}</p>
-            `
+                deathsField.innerHTML = `
+                    <p>Mortes: ${deaths}</p>
+                `
 
-            recoveredField.innerHTML = `
-                <p>Recuperados: ${recovered}</p>
-            `
-        })
+                recoveredField.innerHTML = `
+                    <p>Recuperados: ${recovered}</p>
+                `
+            })
+        } catch (error) {
+            console.error(error)
+        }
     }
     
     return (
-        <div id="page-map">
+        <div id="page-map" onLoad={getWorldData}>
             <aside>
                 <div className="status" >
                     <div className="status-header">
@@ -144,6 +153,7 @@ function LandingMap() {
                         </div>
                     </div>
                 </div>
+                <hr/>
                 <footer>Made with coffee by <a href="https://github.com/nicholasscabral" target="_blank">Nicholas cabral</a> </footer>
             </aside>
 
