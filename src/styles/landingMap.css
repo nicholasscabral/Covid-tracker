@@ -69,6 +69,17 @@
     flex-direction: row;
 }
 
+#page-map footer a {
+    text-decoration: none;
+    display: inline-block;
+    color: wheat;
+
+    transition: 0.4s;
+}
+
+#page-map footer a:hover {
+    transform: translateY(-5px);
+}
 
 /* 
 #page-map aside h2 {
@@ -97,4 +108,3 @@
 #page-map .leaflet-container {
     z-index: 5;
 } */
-
