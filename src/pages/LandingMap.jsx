@@ -20,8 +20,53 @@ function LandingMap() {
         var latitude = event.latlng.lat;
         
         console.log(latitude, longitude);
-        alert(detectCountry([longitude, latitude]))
+        // alert(detectCountry([longitude, latitude]))
         var country = detectCountry([longitude, latitude])
+        
+    }
+
+    function getCountryData(country) {
+        try {
+            api.get(`/v2/countries/${country}`)
+            .then(response => {
+                console.log(response)
+                const headerField = document.querySelector('.status-header')
+                const casesField = document.querySelector('.cases')
+                const activeField = document.querySelector('.active')
+                const deathsField = document.querySelector('.deaths')
+                const recoveredField = document.querySelector('.recovered')
+                
+                var country = response.data.country
+                var iconCode = response.data.countryInfo.iso2
+                var cases = response.data.cases
+                var activeCases = response.data.active
+                var deaths = response.data.deaths
+                var recovered = response.data.recovered
+
+                headerField.innerHTML = `
+                    <img src="https://github.com/hjnilsson/country-flags/blob/master/png100px/${iconCode.toLowerCase()}.png?raw=true" />
+                    <span>${country}</span>
+                `
+                casesField.innerHTML = `
+                    <p>Total de casos: ${cases}</p>
+                `
+
+                activeField.innerHTML = `
+                    <p>Casos Ativos: ${activeCases}</p>
+                `
+
+                deathsField.innerHTML = `
+                    <p>Mortes: ${deaths}</p>
+                `
+
+                recoveredField.innerHTML = `
+                    <p>Recuperados: ${recovered}</p>
+                `
+            })
+        }
+        catch (error) {
+            console.error(error)
+        }
     }
     
     return (
@@ -55,12 +100,12 @@ function LandingMap() {
                         <div className="info">
                             <div className="icon"><img src={ mask }alt=" "/></div>
                             <div className="recovered">
-                                <p>Casos recuperados: -</p>
+                                <p>Recuperados: -</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <footer>Made with coffee by <a href="https://github.com/nicholasscabral" target="_blank">nicholasscabral</a> </footer>
+                <footer>Made with coffee by <a href="https://github.com/nicholasscabral" target="_blank">Nicholas cabral</a> </footer>
             </aside>
 
             <Map id="mapa" onClick={getCoodinates}
