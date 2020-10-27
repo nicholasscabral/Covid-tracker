@@ -68,6 +68,45 @@ function LandingMap() {
             console.error(error)
         }
     }
+
+    function getWorldData() {
+        api.get(`/v3/covid-19/all`)
+        .then(response => {
+            console.log(response)
+            
+            const headerField = document.querySelector('.status-header')
+            const casesField = document.querySelector('.cases')
+            const activeField = document.querySelector('.active')
+            const deathsField = document.querySelector('.deaths')
+            const recoveredField = document.querySelector('.recovered')
+
+            var cases = response.data.cases
+            var activeCases = response.data.active
+            var deaths = response.data.deaths
+            var recovered = response.data.recovered
+
+            headerField.innerHTML = `
+                <img src="${world}" alt=""/>
+                <span>Mundo</span>
+            `
+
+            casesField.innerHTML = `
+                <p>Total de casos: ${cases}</p>
+            `
+
+            activeField.innerHTML = `
+                <p>Casos Ativos: ${activeCases}</p>
+            `
+
+            deathsField.innerHTML = `
+                <p>Mortes: ${deaths}</p>
+            `
+
+            recoveredField.innerHTML = `
+                <p>Recuperados: ${recovered}</p>
+            `
+        })
+    }
     
     return (
         <div id="page-map">
