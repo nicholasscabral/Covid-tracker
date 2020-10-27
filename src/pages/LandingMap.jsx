@@ -13,6 +13,8 @@ import 'leaflet/dist/leaflet.css';
 
 
 const detectCountry = require('which-country')
+const formatNumber = require('numeral');
+
 function LandingMap() {
     
     function getCoodinates(event) {
@@ -20,7 +22,7 @@ function LandingMap() {
         var latitude = event.latlng.lat;
         
         console.log(latitude, longitude);
-        // alert(detectCountry([longitude, latitude]))
+
         var country = detectCountry([longitude, latitude])
 
         if (country === null) {
@@ -34,7 +36,7 @@ function LandingMap() {
         try {
             api.get(`/v2/countries/${country}`)
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 const headerField = document.querySelector('.status-header')
                 const casesField = document.querySelector('.cases')
                 const activeField = document.querySelector('.active')
@@ -53,19 +55,19 @@ function LandingMap() {
                     <span>${country}</span>
                 `
                 casesField.innerHTML = `
-                    <p>Total de casos: ${cases}</p>
+                    <p>Total de casos: ${formatNumber(cases).format('0,0')}</p>
                 `
 
                 activeField.innerHTML = `
-                    <p>Casos Ativos: ${activeCases}</p>
+                    <p>Casos ativos: ${formatNumber(activeCases).format('0,0')}</p>
                 `
 
                 deathsField.innerHTML = `
-                    <p>Mortes: ${deaths}</p>
+                    <p>Mortes: ${formatNumber(deaths).format('0,0')}</p>
                 `
 
                 recoveredField.innerHTML = `
-                    <p>Recuperados: ${recovered}</p>
+                    <p>Recuperados: ${formatNumber(recovered).format('0,0')}</p>
                 `
             })
         }
@@ -78,7 +80,7 @@ function LandingMap() {
         try {
             api.get(`/v3/covid-19/all`)
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 
                 const headerField = document.querySelector('.status-header')
                 const casesField = document.querySelector('.cases')
@@ -97,19 +99,19 @@ function LandingMap() {
                 `
 
                 casesField.innerHTML = `
-                    <p>Total de casos: ${cases}</p>
+                    <p>Total de casos: ${formatNumber(cases).format('0,0')}</p>
                 `
 
                 activeField.innerHTML = `
-                    <p>Casos Ativos: ${activeCases}</p>
+                    <p>Casos ativos: ${formatNumber(activeCases).format('0,0')}</p>
                 `
 
                 deathsField.innerHTML = `
-                    <p>Mortes: ${deaths}</p>
+                    <p>Mortes: ${formatNumber(deaths).format('0,0')}</p>
                 `
 
                 recoveredField.innerHTML = `
-                    <p>Recuperados: ${recovered}</p>
+                    <p>Recuperados: ${formatNumber(recovered).format('0,0')}</p>
                 `
             })
         } catch (error) {
@@ -152,8 +154,8 @@ function LandingMap() {
                             </div>
                         </div>
                     </div>
-                </div>
                 <hr/>
+                </div>
                 <footer>Made with coffee by <a href="https://github.com/nicholasscabral" target="_blank">Nicholas cabral</a> </footer>
             </aside>
 
