@@ -16,11 +16,28 @@ const detectCountry = require('which-country')
 const formatNumber = require('numeral');
 
 function LandingMap() {
-
+    
     let bounds = [
         [-85.0511287798066, 262.96875000000006],
         [84.67351256610525, -182.81250000000003]
     ]
+    
+    function scrollToAside() {
+        const aside = document.querySelector('#aside')
+        const href = aside.getAttribute('href')
+        const goTo = document.querySelector(href).offsetTop
+        
+
+        window.scroll({
+            top: goTo,
+            behavior: "smooth"
+        })
+    }
+
+    function getLocation(event) {
+        getCoodinates(event)
+        scrollToAside()
+    }
 
     function getCoodinates(event) {
         var longitude = event.latlng.lng;
@@ -127,6 +144,7 @@ function LandingMap() {
     return (
         <div id="page-map" onLoad={getWorldData}>
             <aside>
+                <a href="aside" id="aside"></a>
                 <div className="status" >
                     <div className="status-header">
                         <img src={world} alt=""/>
@@ -164,7 +182,7 @@ function LandingMap() {
                 <footer>Made with coffee by <a href="https://github.com/nicholasscabral" target="_blank">Nicholas cabral</a> </footer>
             </aside>
 
-            <Map id="mapa" onClick={getCoodinates}
+            <Map id="mapa" onClick={getLocation}
                 center={[39.27762174380272, 10.96741045708063]}
                 minZoom={2}
                 zoom={2}
