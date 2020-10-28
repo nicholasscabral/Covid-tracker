@@ -16,7 +16,12 @@ const detectCountry = require('which-country')
 const formatNumber = require('numeral');
 
 function LandingMap() {
-    
+
+    let bounds = [
+        [-85.0511287798066, 262.96875000000006],
+        [84.67351256610525, -182.81250000000003]
+    ]
+
     function getCoodinates(event) {
         var longitude = event.latlng.lng;
         var latitude = event.latlng.lat;
@@ -164,6 +169,7 @@ function LandingMap() {
                 minZoom={2}
                 zoom={2}
                 maxZoom={4}
+                maxBounds={bounds}
                 style={{ width: '100%', height: '100%' }}
             >
                 {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"/> */}
