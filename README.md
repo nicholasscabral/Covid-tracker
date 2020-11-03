@@ -28,7 +28,7 @@ __<p align="center">Covid tracker é uma aplicação desenvolvida para mostrar d
 
 <hr>
 <p align="center">
-  <img src="/covid-tracker.gif" width="800" height="400"/>
+  <img src="/covid tracker.gif" width="800" height="400"/>
 </p>
 
 ## :pushpin: Description
