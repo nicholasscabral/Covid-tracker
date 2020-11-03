@@ -84,33 +84,3 @@
 #page-map footer a:hover {
     transform: translateY(-5px);
 }
-
-@media (max-width:800px) {
-    #page-map  {
-        display: block;
-        width: 100%;
-       
-    }
-
-    #page-map aside {
-        display: block;
-        width: 100%;
-        padding: 40px 40px 40px;
-    }
-
-    #page-map aside  {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #page-map aside footer {
-        margin-top: 30px;
-    }
-}
-
-@media (min-height:800px) {
-    #page-map .status .status-info {
-        margin-top: 70px;
-    }
-}

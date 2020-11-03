@@ -11,6 +11,7 @@ import world from "../assets/images/world.svg";
 import mapMarker from "../assets/images/mapMarker.svg";
 
 import "../styles/landingMap.css";
+import '../styles/responsive.css';
 import "leaflet/dist/leaflet.css";
 
 const detectCountry = require("which-country");
