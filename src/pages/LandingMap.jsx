@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import Leaflet from "leaflet";
 import api from "../services/api";
@@ -19,15 +19,27 @@ const formatNumber = require("numeral");
 const mapIcon = Leaflet.icon({
   iconUrl: mapMarker,
 
-  iconSize: [25, 68],
-  iconAnchor: [29, 68],
+  iconSize: [36, 68],
+  iconAnchor: [18, 68],
 });
 
+let bounds = [
+  [-85.0511287798066, 262.96875000000006],
+  [84.67351256610525, -182.81250000000003],
+];
+
 function LandingMap() {
-  let bounds = [
-    [-85.0511287798066, 262.96875000000006],
-    [84.67351256610525, -182.81250000000003],
-  ];
+
+  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+
+  function handleMapClick(event) {
+    const { lat, lng } = event.latlng
+
+    setPosition({ 
+      latitude: lat, 
+      longitude: lng,
+    })
+  }
 
   function scrollToAside() {
     const aside = document.querySelector("#aside");
@@ -42,6 +54,7 @@ function LandingMap() {
 
   function getLocation(event) {
     getCoodinates(event);
+    handleMapClick(event)
     scrollToAside();
   }
 
@@ -84,9 +97,7 @@ function LandingMap() {
                 `;
 
         activeField.innerHTML = `
-                    <p>Casos ativos: ${formatNumber(activeCases).format(
-                      "0,0"
-                    )}</p>
+                    <p>Casos ativos: ${formatNumber(activeCases).format("0,0")}</p>
                 `;
 
         deathsField.innerHTML = `
@@ -218,7 +229,15 @@ function LandingMap() {
         {/* meu estilo personalizado EM INGLES (mapbox) = /styles/v1/nicholasscabral/ckgr0cw1z41v11aqoyhntqgid*/}
         {/* meu estilo personalizado EM PORTUGUES (mapbox) = /styles/nicholasscabral/ckgr86l2j05iy19nwg8iu2f02 */}
 
-        <Marker icon={mapIcon} position={[-3.8105801, -38.4724312]}></Marker>
+        { position.latitude != 0 && (
+          <Marker 
+            icon={mapIcon} 
+            position={[
+              position.latitude, 
+              position.longitude
+            ]} 
+          />
+        )}
       </Map>
     </div>
   );
