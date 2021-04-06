@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  Made with :coffee: by <a href="https://www.linkedin.com/in/nicholas-cabral-dos-anjos-13b3981a7/" target="_blank"> Nicholasscabral </a> 
+  Made with :coffee: by <a href="https://www.linkedin.com/in/nicholas-cabral-dos-anjos-13b3981a7/" target="_blank"> Rodrigo Sabino </a> 
 </p>
 
 __<p align="center">Covid tracker é uma aplicação desenvolvida para mostrar dados sobre o Covid-19 por todo o mundo</p>__
