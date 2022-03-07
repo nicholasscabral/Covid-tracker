@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import api from "../services/api";
+
 import { Map, TileLayer, Marker } from "react-leaflet";
 import Leaflet from "leaflet";
-import api from "../services/api";
 
 import bacteria from "../assets/images/bacteria.svg";
 import personMask from "../assets/images/person-mask.svg";
@@ -14,32 +15,27 @@ import "../styles/landingMap.css";
 import '../styles/responsive.css';
 import "leaflet/dist/leaflet.css";
 
-const detectCountry = require("which-country");
+import { ANCHOR_SIZE, GITHUB_URL, ICON_SIZE, MAP_BOUNDERIES, MAP_CENTER, TILE_LAYER_MAPBOX_URL } from "../common/constans";
+import { GET_COUTRY_DATA_API_URL, GET_WORLD_DATA_API_URL } from "../common/routes";
+
+const getCountry = require("which-country");
 const formatNumber = require("numeral");
 
 const mapIcon = Leaflet.icon({
   iconUrl: mapMarker,
 
-  iconSize: [36, 68],
-  iconAnchor: [18, 68],
+  iconSize: ICON_SIZE,
+  iconAnchor: ANCHOR_SIZE,
 });
-
-let bounds = [
-  [-85.0511287798066, 262.96875000000006],
-  [84.67351256610525, -182.81250000000003],
-];
 
 function LandingMap() {
 
-  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+  const [position, setPosition] = useState({ lat: 0, lng: 0 });
 
   function handleMapClick(event) {
     const { lat, lng } = event.latlng
 
-    setPosition({ 
-      latitude: lat, 
-      longitude: lng,
-    })
+    setPosition({lat, lng})
   }
 
   function scrollToAside() {
@@ -54,40 +50,45 @@ function LandingMap() {
   }
 
   function getLocation(event) {
-    getCoodinates(event);
+    getCoordinates(event);
     handleMapClick(event)
     scrollToAside();
   }
 
-  function getCoodinates(event) {
-    var longitude = event.latlng.lng;
-    var latitude = event.latlng.lat;
+  function getCoordinates(event) {
+    const {lng, lat} = event.latlng
 
-    console.log(latitude, longitude);
+    console.log(lat, lng);
 
-    var country = detectCountry([longitude, latitude]);
+    const country = getCountry([lng, lat]);
 
-    if (country === null) {
-      getWorldData();
-    } else getCountryData(country);
+    country ? getCountryData(country) : getWorldData()
   }
 
   function getCountryData(country) {
     try {
-      api.get(`/v2/countries/${country}`).then((response) => {
-        // console.log(response)
+      api.get(`${GET_COUTRY_DATA_API_URL}${country}`).then((response) => {
         const headerField = document.querySelector(".status-header");
         const casesField = document.querySelector(".cases");
         const activeField = document.querySelector(".active");
         const deathsField = document.querySelector(".deaths");
         const recoveredField = document.querySelector(".recovered");
 
-        var country = response.data.country;
-        var iconCode = response.data.countryInfo.iso2;
-        var cases = response.data.cases;
-        var activeCases = response.data.active;
-        var deaths = response.data.deaths;
-        var recovered = response.data.recovered;
+        // var country = response.data.country;
+        // var iconCode = response.data.countryInfo.iso2;
+        // var cases = response.data.cases;
+        // var activeCases = response.data.active;
+        // var deaths = response.data.deaths;
+        // var recovered = response.data.recovered;
+
+        const {
+          country,
+          cases,
+          deaths,
+          recovered,
+          active,
+        } = response.data
+        const iconCode = response.data.countryInfo.iso2
 
         headerField.innerHTML = `
                     <img src="https://github.com/hjnilsson/country-flags/blob/master/png100px/${iconCode.toLowerCase()}.png?raw=true" />
@@ -98,7 +99,7 @@ function LandingMap() {
                 `;
 
         activeField.innerHTML = `
-                    <p>Casos ativos: ${formatNumber(activeCases).format("0,0")}</p>
+                    <p>Casos ativos: ${formatNumber(active).format("0,0")}</p>
                 `;
 
         deathsField.innerHTML = `
@@ -116,19 +117,19 @@ function LandingMap() {
 
   function getWorldData() {
     try {
-      api.get(`/v3/covid-19/all`).then((response) => {
-        // console.log(response)
-
+      api.get(GET_WORLD_DATA_API_URL).then((response) => {
         const headerField = document.querySelector(".status-header");
         const casesField = document.querySelector(".cases");
         const activeField = document.querySelector(".active");
         const deathsField = document.querySelector(".deaths");
         const recoveredField = document.querySelector(".recovered");
 
-        var cases = response.data.cases;
-        var activeCases = response.data.active;
-        var deaths = response.data.deaths;
-        var recovered = response.data.recovered;
+        // var cases = response.data.cases;
+        // var activeCases = response.data.active;
+        // var deaths = response.data.deaths;
+        // var recovered = response.data.recovered;
+
+        const {cases, active, deaths, recovered} = response.data
 
         headerField.innerHTML = `
                     <img src="${world}" alt=""/>
@@ -140,7 +141,7 @@ function LandingMap() {
                 `;
 
         activeField.innerHTML = `
-                    <p>Casos ativos: ${formatNumber(activeCases).format(
+                    <p>Casos ativos: ${formatNumber(active).format(
                       "0,0"
                     )}</p>
                 `;
@@ -161,7 +162,7 @@ function LandingMap() {
   return (
     <div id="page-map" onLoad={getWorldData}>
       <aside>
-        <a href="aside" id="aside"></a>
+        <a href="aside" id="aside"> </a>
         <div className="status">
           <div className="status-header">
             <img src={world} alt="" />
@@ -206,7 +207,7 @@ function LandingMap() {
         </div>
         <footer>
           Made with coffee by{" "}
-          <a href="https://github.com/nicholasscabral" target="_blank">
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer">
             Nicholas cabral
           </a>{" "}
         </footer>
@@ -215,27 +216,27 @@ function LandingMap() {
       <Map
         id="mapa"
         onClick={getLocation}
-        center={[39.27762174380272, 10.96741045708063]}
+        center={MAP_CENTER}
         minZoom={2}
         zoom={2}
         maxZoom={4}
-        maxBounds={bounds}
+        maxBounds={MAP_BOUNDERIES}
         style={{ width: "100%", height: "100%" }}
       >
         {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"/> */}
         <TileLayer
-          url={`https://api.mapbox.com/styles/v1/nicholasscabral/ckgr86l2j05iy19nwg8iu2f02/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+          url={TILE_LAYER_MAPBOX_URL}
         />
 
         {/* meu estilo personalizado EM INGLES (mapbox) = /styles/v1/nicholasscabral/ckgr0cw1z41v11aqoyhntqgid*/}
         {/* meu estilo personalizado EM PORTUGUES (mapbox) = /styles/nicholasscabral/ckgr86l2j05iy19nwg8iu2f02 */}
 
-        { position.latitude != 0 && (
+        { position.lat !== 0 && (
           <Marker 
             icon={mapIcon} 
             position={[
-              position.latitude, 
-              position.longitude
+              position.lat, 
+              position.lng
             ]} 
           />
         )}
