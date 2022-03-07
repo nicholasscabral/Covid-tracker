@@ -74,13 +74,6 @@ function LandingMap() {
         const deathsField = document.querySelector(".deaths");
         const recoveredField = document.querySelector(".recovered");
 
-        // var country = response.data.country;
-        // var iconCode = response.data.countryInfo.iso2;
-        // var cases = response.data.cases;
-        // var activeCases = response.data.active;
-        // var deaths = response.data.deaths;
-        // var recovered = response.data.recovered;
-
         const {
           country,
           cases,
@@ -110,8 +103,8 @@ function LandingMap() {
                     <p>Recuperados: ${formatNumber(recovered).format("0,0")}</p>
                 `;
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -123,11 +116,6 @@ function LandingMap() {
         const activeField = document.querySelector(".active");
         const deathsField = document.querySelector(".deaths");
         const recoveredField = document.querySelector(".recovered");
-
-        // var cases = response.data.cases;
-        // var activeCases = response.data.active;
-        // var deaths = response.data.deaths;
-        // var recovered = response.data.recovered;
 
         const {cases, active, deaths, recovered} = response.data
 
@@ -154,8 +142,8 @@ function LandingMap() {
                     <p>Recuperados: ${formatNumber(recovered).format("0,0")}</p>
                 `;
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   }
 
